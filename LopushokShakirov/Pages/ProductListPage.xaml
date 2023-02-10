@@ -25,15 +25,7 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
-                            <Image>
-                                <Image.Source>
-                                    <Binding>
-                                        <Binding.TargetNullValue>
-                                            <ImageSource>../Images/picture.png</ImageSource>
-                                        </Binding.TargetNullValue>
-                                    </Binding>
-                                </Image.Source>
-                            </Image>
+                            <Image Source="Images/picture.png"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
