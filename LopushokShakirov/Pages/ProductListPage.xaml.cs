@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LopushokShakirov.DB;
 
 namespace LopushokShakirov.Pages
 {
@@ -20,14 +21,21 @@ namespace LopushokShakirov.Pages
     /// </summary>
     public partial class ProductListPage : Page
     {
+        public List<Product> Products { get; set; }
         public List<Pagin> Pages = new List<Pagin>();
+
         public ProductListPage()
         {
             InitializeComponent();
+
+            Products = DataAccess.GetProducts();
+
             Pages.Add(new Pagin { Title = "1"});
             Pages.Add(new Pagin { Title = "2" });
             Pages.Add(new Pagin { Title = "3" });
             lvPagination.ItemsSource = Pages;
+
+            this.DataContext = this;
         }
     }
     public class Pagin
