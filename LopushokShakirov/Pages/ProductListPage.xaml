@@ -65,8 +65,8 @@
         </Grid>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Background="Transparent" BorderBrush="Transparent" Content="&lt;"/>
-            <ListView x:Name="lvPagination" BorderBrush="Transparent" ItemsSource="{Binding Pages}">
+            <Button x:Name="btnLastPage" Background="Transparent" BorderBrush="Transparent" Content="&lt;" Click="btnLastPage_Click"/>
+            <ListView x:Name="lvPagination" BorderBrush="Transparent" ItemsSource="{Binding Pages}" SelectionChanged="lvPagination_SelectionChanged">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
@@ -78,7 +78,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Background="Transparent" BorderBrush="Transparent" Content="&gt;"/>
+            <Button x:Name="btnNextPage" Background="Transparent" BorderBrush="Transparent" Content="&gt;" Click="btnNextPage_Click"/>
         </StackPanel>
     </Grid>
 </Page>

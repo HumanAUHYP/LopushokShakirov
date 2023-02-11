@@ -23,6 +23,8 @@ namespace LopushokShakirov.Pages
     {
         public List<Product> Products { get; set; }
         public List<Pagin> Pages = new List<Pagin>();
+        public int pageIndex = 1;
+        public int maxPageIndex;
 
         public ProductListPage()
         {
@@ -30,12 +32,61 @@ namespace LopushokShakirov.Pages
 
             Products = DataAccess.GetProducts();
 
-            Pages.Add(new Pagin { Title = "1"});
-            Pages.Add(new Pagin { Title = "2" });
-            Pages.Add(new Pagin { Title = "3" });
+            maxPageIndex = Products.Count / 20;
+            for (int i = 1; i <= maxPageIndex; i++)
+            {
+                Pages.Add(new Pagin { Title = Convert.ToString(i) });
+            }
             lvPagination.ItemsSource = Pages;
 
+
+            DisplayProductInPage();
             this.DataContext = this;
+            
+        }
+
+        public void DisplayProductInPage() 
+        {
+            var productsInPage = new List<Product>();
+            for (int i = (pageIndex - 1) * 20; i < pageIndex * 20; i++)
+            {
+                try
+                {
+                    productsInPage.Add(Products[i]);
+                }
+                catch (Exception)
+                {
+                    break;
+                }
+                
+            }
+            lvProducts.ItemsSource = productsInPage;
+        }
+
+        private void btnLastPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (pageIndex > 1)
+            {
+                pageIndex--;
+                lvPagination.SelectedIndex--;
+            }
+            DisplayProductInPage();
+        }
+
+        private void btnNextPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (pageIndex < maxPageIndex)
+            {
+                pageIndex++;
+                lvPagination.SelectedIndex++;
+            }
+            DisplayProductInPage();
+        }
+
+        private void lvPagination_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            pageIndex = Convert.ToInt32((lvPagination.SelectedItem as Pagin).Title);
+            DisplayProductInPage();
         }
     }
     public class Pagin
