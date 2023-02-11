@@ -25,10 +25,13 @@ namespace LopushokShakirov.Pages
         public List<Pagin> Pages = new List<Pagin>();
         public int pageIndex = 1;
         public int maxPageIndex;
+        MainWindow globalMainWindow;
 
-        public ProductListPage()
+        public ProductListPage(MainWindow mainWindow)
         {
             InitializeComponent();
+            globalMainWindow = mainWindow;
+            mainWindow.tbTitle.Text = "Продукты";
 
             Products = DataAccess.GetProducts();
 
@@ -45,22 +48,20 @@ namespace LopushokShakirov.Pages
             
         }
 
-        public void DisplayProductInPage() 
+        
+        private void btnChange_Click(object sender, RoutedEventArgs e)
         {
-            var productsInPage = new List<Product>();
-            for (int i = (pageIndex - 1) * 20; i < pageIndex * 20; i++)
-            {
-                try
-                {
-                    productsInPage.Add(Products[i]);
-                }
-                catch (Exception)
-                {
-                    break;
-                }
-                
-            }
-            lvProducts.ItemsSource = productsInPage;
+
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddProductPage(globalMainWindow));
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void btnLastPage_Click(object sender, RoutedEventArgs e)
@@ -87,6 +88,33 @@ namespace LopushokShakirov.Pages
         {
             pageIndex = Convert.ToInt32((lvPagination.SelectedItem as Pagin).Title);
             DisplayProductInPage();
+        }
+        public void DisplayProductInPage()
+        {
+            var productsInPage = new List<Product>();
+            for (int i = (pageIndex - 1) * 20; i < pageIndex * 20; i++)
+            {
+                try
+                {
+                    productsInPage.Add(Products[i]);
+                }
+                catch (Exception)
+                {
+                    break;
+                }
+
+            }
+            lvProducts.ItemsSource = productsInPage;
+        }
+
+        private void cbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void cbFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
     public class Pagin

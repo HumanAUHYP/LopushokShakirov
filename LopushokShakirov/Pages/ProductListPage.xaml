@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:LopushokShakirov.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ProductListPage">
+      Title="Список продуктов">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,6 +14,27 @@
             <RowDefinition/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.25*"/>
+                <ColumnDefinition Width="0.25*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="tbxSearch" HorizontalContentAlignment="Stretch" Text="Введите для поиска" Margin="10" Padding="10,0,0,0" BorderBrush="Black"/>
+            <ComboBox x:Name="cbSort" Grid.Column="1" Margin="10" SelectionChanged="cbSort_SelectionChanged">
+                <ComboBox.BitmapEffect>
+                    <DropShadowBitmapEffect/>
+                </ComboBox.BitmapEffect>
+            </ComboBox>
+            <ComboBox x:Name="cbFilter" Grid.Column="2" Margin="10" SelectionChanged="cbFilter_SelectionChanged">
+                <ComboBox.BitmapEffect>
+                    <DropShadowBitmapEffect/>
+                </ComboBox.BitmapEffect>
+            </ComboBox>
+
+        </Grid>
 
         <ListView x:Name="lvProducts" Grid.Row="1" ItemsSource="{Binding Products}" HorizontalContentAlignment="Stretch" BorderBrush="Transparent">
             <ListView.ItemTemplate>
@@ -56,29 +77,36 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="0.25*"/>
-                <ColumnDefinition Width="0.25*"/>
-            </Grid.ColumnDefinitions>
-        </Grid>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button x:Name="btnLastPage" Background="Transparent" BorderBrush="Transparent" Content="&lt;" Click="btnLastPage_Click"/>
-            <ListView x:Name="lvPagination" BorderBrush="Transparent" ItemsSource="{Binding Pages}" SelectionChanged="lvPagination_SelectionChanged">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Title}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Button x:Name="btnNextPage" Background="Transparent" BorderBrush="Transparent" Content="&gt;" Click="btnNextPage_Click"/>
-        </StackPanel>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button x:Name="btnChange" Content="Изменить" Click="btnChange_Click"/>
+                <Button x:Name="btnAdd" Content="Добавить" Click="btnAdd_Click"/>
+                <Button x:Name="btnDelete" Content="Удалить" Click="btnDelete_Click"/>
+            </StackPanel>
+        
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="btnLastPage" Background="Transparent" BorderBrush="Transparent" Content="&lt;" Click="btnLastPage_Click"/>
+                <ListView x:Name="lvPagination" BorderBrush="Transparent" ItemsSource="{Binding Pages}" SelectionChanged="lvPagination_SelectionChanged">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button x:Name="btnNextPage" Background="Transparent" BorderBrush="Transparent" Content="&gt;" Click="btnNextPage_Click"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

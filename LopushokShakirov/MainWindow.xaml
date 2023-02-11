@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LopushokShakirov"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Лопушок" Height="800" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -20,8 +20,8 @@
             <Image Source="Images\Лопушок.png" HorizontalAlignment="Left" Margin="10,0,0,0"/>
             <TextBlock x:Name="tbTitle" Grid.Column="1" Text="Стартовый экран" FontSize="34"/>
             <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="btnBack" Content="Назад" Click="btnBack_Click" Visibility="Hidden"/>
-                <Button x:Name="btnForward" Content="Вперед" Click="btnForward_Click" Visibility="Hidden"/>
+                <Button x:Name="btnBack" Content="Назад" Click="btnBack_Click" />
+                <Button x:Name="btnForward" Content="Вперед" Click="btnForward_Click" />
             </StackPanel>
         </Grid>
         

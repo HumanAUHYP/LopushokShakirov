@@ -23,9 +23,7 @@ namespace LopushokShakirov
         public MainWindow()
         {
             InitializeComponent();
-            mainFrame.Navigate(new Pages.ProductListPage());
-            BackForwardVisibility();
-
+            mainFrame.Navigate(new Pages.ProductListPage(this));
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -38,10 +36,5 @@ namespace LopushokShakirov
             if (mainFrame.CanGoForward) mainFrame.GoForward();
         }
 
-        public void BackForwardVisibility()
-        {
-            if (mainFrame.CanGoBack) btnBack.Visibility = Visibility.Visible;
-            if (mainFrame.CanGoForward) btnForward.Visibility = Visibility.Visible;
-        }
     }
 }
