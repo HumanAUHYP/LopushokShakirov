@@ -22,6 +22,7 @@ namespace LopushokShakirov.Pages
     public partial class ProductListPage : Page
     {
         public List<Product> Products { get; set; }
+        public List<Product> AllProducts { get; set; }
         public List<Pagin> Pages = new List<Pagin>();
         public int pageIndex = 1;
         public int maxPageIndex;
@@ -34,15 +35,12 @@ namespace LopushokShakirov.Pages
             mainWindow.tbTitle.Text = "Продукты";
 
             Products = DataAccess.GetProducts();
-
-            maxPageIndex = Products.Count / 20;
-            for (int i = 1; i <= maxPageIndex; i++)
-            {
-                Pages.Add(new Pagin { Title = Convert.ToString(i) });
-            }
-            lvPagination.ItemsSource = Pages;
+            AllProducts = Products;
 
 
+
+
+            Paginator();
             DisplayProductInPage();
             this.DataContext = this;
             
@@ -115,6 +113,33 @@ namespace LopushokShakirov.Pages
         private void cbFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+        private void AllFilters()
+        {
+            Products = AllProducts;
+
+            if (tbxSearch.Text != "")
+            {
+                Products = Products.Where(a => a.Name.Contains($"{tbxSearch.Text}") || a.Description.Contains($"{tbxSearch.Text}")).ToList();
+            }
+            Paginator();
+            DisplayProductInPage();
+        }
+
+        private void tbxSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            AllFilters();
+        }
+        private void Paginator()
+        {
+            Pages.Clear();
+            maxPageIndex = Products.Count / 20;
+            for (int i = 1; i <= maxPageIndex; i++)
+            {
+                Pages.Add(new Pagin { Title = Convert.ToString(i) });
+            }
+            lvPagination.ItemsSource = Pages;
+            lvPagination.Items.Refresh();
         }
     }
     public class Pagin

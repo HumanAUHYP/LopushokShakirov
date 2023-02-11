@@ -15,14 +15,14 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
-        <Grid>
+        <Grid Background="#CEFFF9">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="0.25*"/>
                 <ColumnDefinition Width="0.25*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="tbxSearch" HorizontalContentAlignment="Stretch" Text="Введите для поиска" Margin="10" Padding="10,0,0,0" BorderBrush="Black"/>
+            <TextBox x:Name="tbxSearch" Margin="10" Padding="10,0,0,0" BorderBrush="Black" TextChanged="tbxSearch_TextChanged"/>
             <ComboBox x:Name="cbSort" Grid.Column="1" Margin="10" SelectionChanged="cbSort_SelectionChanged">
                 <ComboBox.BitmapEffect>
                     <DropShadowBitmapEffect/>
@@ -78,7 +78,7 @@
         </ListView>
 
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Background="#CEFFF9">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
@@ -93,7 +93,7 @@
         
             <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button x:Name="btnLastPage" Background="Transparent" BorderBrush="Transparent" Content="&lt;" Click="btnLastPage_Click"/>
-                <ListView x:Name="lvPagination" BorderBrush="Transparent" ItemsSource="{Binding Pages}" SelectionChanged="lvPagination_SelectionChanged">
+                <ListView x:Name="lvPagination" BorderBrush="Transparent" ItemsSource="{Binding Pages}" SelectionChanged="lvPagination_SelectionChanged" Background="#CEFFF9">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
