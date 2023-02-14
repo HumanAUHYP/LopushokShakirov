@@ -41,7 +41,6 @@ namespace LopushokShakirov.Pages
 
 
             Paginator();
-            DisplayProductInPage();
             this.DataContext = this;
             
         }
@@ -69,7 +68,6 @@ namespace LopushokShakirov.Pages
                 pageIndex--;
                 lvPagination.SelectedIndex--;
             }
-            DisplayProductInPage();
         }
 
         private void btnNextPage_Click(object sender, RoutedEventArgs e)
@@ -79,12 +77,12 @@ namespace LopushokShakirov.Pages
                 pageIndex++;
                 lvPagination.SelectedIndex++;
             }
-            DisplayProductInPage();
         }
 
         private void lvPagination_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            pageIndex = Convert.ToInt32((lvPagination.SelectedItem as Pagin).Title);
+            if (lvPagination.SelectedItem != null)
+                pageIndex = Convert.ToInt32((lvPagination.SelectedItem as Pagin).Title);
             DisplayProductInPage();
         }
         public void DisplayProductInPage()
@@ -133,13 +131,14 @@ namespace LopushokShakirov.Pages
         private void Paginator()
         {
             Pages.Clear();
-            maxPageIndex = Products.Count / 20;
+            maxPageIndex = (int)Math.Ceiling((double)Products.Count / 20);
             for (int i = 1; i <= maxPageIndex; i++)
             {
                 Pages.Add(new Pagin { Title = Convert.ToString(i) });
             }
             lvPagination.ItemsSource = Pages;
             lvPagination.Items.Refresh();
+            lvPagination.SelectedIndex = 0;
         }
     }
     public class Pagin
