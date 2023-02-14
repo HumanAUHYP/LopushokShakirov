@@ -23,6 +23,7 @@ namespace LopushokShakirov.Pages
     {
         public List<Product> Products { get; set; }
         public List<Product> AllProducts { get; set; }
+        public List<ProductType> ProductTypes { get; set; }
         public List<Pagin> Pages = new List<Pagin>();
         public int pageIndex = 1;
         public int maxPageIndex;
@@ -35,14 +36,14 @@ namespace LopushokShakirov.Pages
             mainWindow.tbTitle.Text = "Продукты";
 
             Products = DataAccess.GetProducts();
+            ProductTypes = DataAccess.GetProductTypes();
+            ProductTypes.Insert(0, new ProductType { Name = "Все типы" });
+            cbProductType.ItemsSource = ProductTypes;
             AllProducts = Products;
+            cbProductType.SelectedIndex = 0;
+            cbSort.SelectedIndex = 0;
 
-
-
-
-            Paginator();
             this.DataContext = this;
-            
         }
 
         
@@ -105,12 +106,12 @@ namespace LopushokShakirov.Pages
 
         private void cbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            AllFilters();
         }
 
-        private void cbFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cbProductType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            AllFilters();
         }
         private void AllFilters()
         {
@@ -120,6 +121,25 @@ namespace LopushokShakirov.Pages
             {
                 Products = Products.Where(a => a.Name.Contains($"{tbxSearch.Text}") || a.Description.Contains($"{tbxSearch.Text}")).ToList();
             }
+
+            var selectedSort = cbSort.SelectedItem as TextBlock;
+            if (selectedSort == tbOrderName)
+                Products = Products.OrderBy(a => a.Name).ToList();
+            else if (selectedSort == tbOrderDescName)
+                Products = Products.OrderByDescending(a => a.Name).ToList();
+            else if (selectedSort == tbOrderNum)
+                Products = Products.OrderBy(a => a.Workshop.Name).ToList();
+            else if (selectedSort == tbOrderDescNum)
+                Products = Products.OrderByDescending(a => a.Workshop.Name).ToList();
+            else if (selectedSort == tbOrderCost)
+                Products = Products.OrderBy(a => a.MinPrice).ToList();
+            else if (selectedSort == tbOrderDescCost)
+                Products = Products.OrderByDescending(a => a.MinPrice).ToList();
+
+            var selectedProductType = cbProductType.SelectedItem as ProductType;
+            if (selectedProductType.Name != "Все типы")
+                Products = Products.FindAll(a => a.ProductType == selectedProductType);
+
             Paginator();
             DisplayProductInPage();
         }

@@ -27,8 +27,15 @@
                 <ComboBox.BitmapEffect>
                     <DropShadowBitmapEffect/>
                 </ComboBox.BitmapEffect>
+                <TextBlock Text="Без сортировки"/>
+                <TextBlock x:Name="tbOrderName" Text="Наименование &#8593;"/>
+                <TextBlock x:Name="tbOrderDescName" Text="Наименование &#8595;"/>
+                <TextBlock x:Name="tbOrderNum" Text="Номер цеха &#8593;"/>
+                <TextBlock x:Name="tbOrderDescNum" Text="Номер цеха &#8595;"/>
+                <TextBlock x:Name="tbOrderCost" Text="Стоимость &#8593;"/>
+                <TextBlock x:Name="tbOrderDescCost" Text="Стоимость &#8595;"/>
             </ComboBox>
-            <ComboBox x:Name="cbFilter" Grid.Column="2" Margin="10" SelectionChanged="cbFilter_SelectionChanged">
+            <ComboBox x:Name="cbProductType" DisplayMemberPath="Name" Grid.Column="2" Margin="10" SelectionChanged="cbProductType_SelectionChanged">
                 <ComboBox.BitmapEffect>
                     <DropShadowBitmapEffect/>
                 </ComboBox.BitmapEffect>
